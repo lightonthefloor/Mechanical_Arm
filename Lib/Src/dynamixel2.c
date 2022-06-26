@@ -400,7 +400,7 @@ void dxl2_tx_packet(void)
 	packet_tx_len = length + PRT2_PKT_LENGTH_H + 1;
 	// usart6_Send_Data(gbInstructionPacket, packet_tx_len); //com口变成串口发数据
 	HAL_HalfDuplex_EnableTransmitter(&huart8);
-	HAL_UART_Transmit(&huart8, gbInstructionPacket, packet_tx_len, 0xffff);
+	HAL_UART_Transmit(&huart8, gbInstructionPacket, packet_tx_len, 0x7ffff);
 	HAL_HalfDuplex_EnableReceiver(&huart8);
 
 #ifdef PRINT_INSTRUCTION

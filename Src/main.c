@@ -65,6 +65,10 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+int Stable = 0;
+int Received = 0;
+
+double Target_X,Target_Y;
 
 void CAN_Recieved_Data_Dealer()
 {
@@ -78,14 +82,26 @@ void CAN_Recieved_Data_Dealer()
 		Start_Turn = 1;
 		double x = (double)xx/1000.0f;
 		double y = (double)yy/1000.0f;
-		Inverse_Theta_Calculation(x,y);
+		Target_X = x;
+		Target_Y = y;
 	}else if (tag == 'S'){
 		Switch_State = (int16_t)(CAN_Recieved_Message[1]<<8 | CAN_Recieved_Message[2]);
 	}else if (tag == 'T'){
 		int Speed = (int16_t)(CAN_Recieved_Message[1]<<8 | CAN_Recieved_Message[2]);
 		Base_Speed_Calculation(1,Speed);
 		CAN_CMD_Current(Current[1],0,0,0);
-	}
+	}else if (tag == 'C'){
+		Stable = 1;
+	}else if (tag == 'A'){
+		int aa1 = (int16_t)(CAN_Recieved_Message[1]<<8 | CAN_Recieved_Message[2]);
+		int aa2 = (int16_t)(CAN_Recieved_Message[3]<<8 | CAN_Recieved_Message[4]);
+		int aa3 = (int16_t)(CAN_Recieved_Message[5]<<8 | CAN_Recieved_Message[6]);
+		Theta1 = ((float)aa1/180.0f)*PI;
+		Theta2 = ((float)aa2/180.0f)*PI;
+		A1_Start_Move_A = 1;
+		A1_Start_Move_B = 1;
+		Servo_Goal_Position(1,aa3);
+	}else if (tag == 'R') Received = 1;
 }
 
 void Speed_Position_Control(int ID, float Speed,float Angle)
@@ -186,10 +202,63 @@ int main(void)
   MX_UART8_Init();
   /* USER CODE BEGIN 2 */
 	Usart6_TX_DMA_Init();
+	USART6_Rx_Init();
 	CAN2_Filter_Init();
 	Tuner_Control_Init();
 
 	M6020_Control_Init();
+
+	HAL_GPIO_WritePin(LED_GPIO_Port,LED_Pin,GPIO_PIN_SET);
+	//Servo_Led(1,1);
+//	Servo_Torque(1,1);
+//	int pos = (4095.0f/360.0f)*90.0f;
+//	Servo_Goal_Position(1,pos);
+
+	Received = 0;
+	while (!Received){
+		CAN_Transmit_Message('P',0,0,0,0,0x301);
+		HAL_Delay(10);
+	}
+
+	Servo_Torque(1,1);
+	//Servo_Goal_Position(1,0);
+
+	while(!Stable)
+	{
+		HAL_Delay(10);
+	}
+
+	HAL_Delay(100);
+	for (int i=1;i<=10;i++){
+		A1_Motor_Multiple_Control(0,0,0,0,0);
+		HAL_Delay(10);
+		A1_Motor_Multiple_Control(1,0,0,0,0);
+		HAL_Delay(10);
+	}
+
+	Set_Zero[0] = A1_State[0].Position;
+	Set_Zero[1] = A1_State[1].Position;
+
+	for (int i=1;i<=10;i++){
+		A1_Motor_Position_Control(0,Set_Zero[0]);
+		HAL_Delay(10);
+		A1_Motor_Position_Control(1,Set_Zero[1]);
+		HAL_Delay(10);
+	}
+
+
+
+	HAL_Delay(1000);
+//	float temp = -(PI/180.0f)*80.0f;
+//	A1_Motor_Position_Control(0,temp);
+//	HAL_Delay(5);
+//	temp = (PI/180.0f)*90.0f;
+//	A1_Motor_Position_Control(1,temp);
+//	HAL_Delay(5);
+//	int pos = -(4095.0f/360.0f)*90.0f;
+//	Servo_Goal_Position(1,pos);
+
+	HAL_GPIO_WritePin(LED_GPIO_Port,LED_Pin,GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -205,31 +274,29 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//		Usart_Printf("Hello world!\r\n");
-//		HAL_Delay(1000);
-//		CAN_Transmit_Message('A',30,30,0,0,0x301);
-//		HAL_Delay(10);
-//	CAN_CMD_Current(1000,0,0,0);
-//		HAL_Delay(10);
-		//Current_Position_Control(1,360.0f);
-//		Base_Speed_Calculation(1,100);
-		//CAN_CMD_Current(Current[1],0,0,0);
-//	HAL_Delay(10);
+//
 		if (Start_Turn){
-			A1_Motor_Position_Control(0,Theta1);
-			HAL_Delay(100);
-			A1_Motor_Position_Control(1,Theta2);
-			HAL_Delay(100);
-			int angle = (int)((180.0f/PI)*Theta3);
-			Servo_Goal_Position(1,angle);
-			Speed_Position_Control(1,200,90.0f);
+//			A1_Motor_Position_Control(0,Theta1);
+//			HAL_Delay(10);
+//			A1_Motor_Position_Control(1,Theta2);
+//			HAL_Delay(10);
+//			int angle = (int)((180.0f/PI)*Theta3);
+//			Servo_Goal_Position(1,angle);
+//			Speed_Position_Control(1,200,90.0f);
+//			CAN_Transmit_Message('C',1,1,1,1,0x301);
+//			HAL_Delay(10);
+			Arm_Move(Target_X,Target_Y);
+			Start_Turn = 0;
 			CAN_Transmit_Message('C',1,1,1,1,0x301);
-			HAL_Delay(10);
 		}else{
-			A1_Motor_Multiple_Control(0xBB,0,0,0,0);
-			Base_Speed_Calculation(1,0);
-			CAN_CMD_Current(Current[1],0,0,0);
-			HAL_Delay(10);
+			//A1_Motor_Multiple_Control(0xBB,0,0,0,0);
+//			A1_Motor_Position_Control(0,Theta1);
+//			HAL_Delay(10);
+//			A1_Motor_Position_Control(1,Theta2);
+//			HAL_Delay(100);
+//			Base_Speed_Calculation(1,0);
+//			CAN_CMD_Current(Current[1],0,0,0);
+//			HAL_Delay(10);
 		}
 
 		if (Switch_State){
@@ -238,7 +305,9 @@ int main(void)
 			HAL_GPIO_WritePin(Switcher_GPIO_Port,Switcher_Pin,GPIO_PIN_RESET);
 		}
 
-		Voltage_Position_Control(1,0);
+		Voltage_Position_Control(3,804);
+		HAL_Delay(10);
+		//CAN_CMD_Current(1000,0,0,0);
   }
   /* USER CODE END 3 */
 }

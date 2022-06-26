@@ -59,6 +59,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Switcher_Pin GPIO_PIN_4
 #define Switcher_GPIO_Port GPIOH
+#define LED_Pin GPIO_PIN_8
+#define LED_GPIO_Port GPIOG
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -29,7 +29,7 @@ typedef struct{
 		uint16_t T;
 		uint16_t W;
 		uint16_t Acc;
-		uint32_t Pos;
+		int32_t Pos;
 		float Pos2;
 }Rx_Data;
 
@@ -44,6 +44,9 @@ typedef struct{
 }Motor_State;
 
 extern Motor_State A1_State[3];
+extern float Set_Zero[3];
+extern int A1_Start_Move_A;
+extern int A1_Start_Move_B;
 
 extern void Mode_Control(int ID,int Mode);
 extern void Usart6_TX_DMA_Init(void);

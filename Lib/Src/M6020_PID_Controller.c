@@ -30,7 +30,7 @@ void M6020_Position_Control_Init(uint8_t ID_Num){
 	PID_Position_Num_M6020[ID_Num].kd = 0.6f;
 	PID_Position_Num_M6020[ID_Num].max_output  = 30000;
 	PID_Position_Num_M6020[ID_Num].integral_limit = 10000;
-	PID_Position_Num_M6020[ID_Num].deadband = 0;
+	PID_Position_Num_M6020[ID_Num].deadband = 20;
 	PID_Position_Num_M6020[ID_Num].max_err = 8000;
 }
 

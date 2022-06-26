@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include <math.h>
 #include "FreeRTOS.h"
 #include "task.h"
 #include "main.h"
@@ -52,6 +51,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+
+
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
@@ -126,21 +127,21 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(Motor_Move_A1_A, Motor_Task_A1_A, osPriorityHigh, 0, 128);
   Motor_Move_A1_AHandle = osThreadCreate(osThread(Motor_Move_A1_A), NULL);
 
-//  /* definition and creation of Motor_Move_A1_B */
+  /* definition and creation of Motor_Move_A1_B */
   osThreadDef(Motor_Move_A1_B, Motor_Task_A1_B, osPriorityHigh, 0, 128);
   Motor_Move_A1_BHandle = osThreadCreate(osThread(Motor_Move_A1_B), NULL);
 
-//  /* definition and creation of Motor_Move_Sevo */
-//  osThreadDef(Motor_Move_Sevo, Motor_Task_Sevo, osPriorityHigh, 0, 128);
-//  Motor_Move_SevoHandle = osThreadCreate(osThread(Motor_Move_Sevo), NULL);
+  /* definition and creation of Motor_Move_Sevo */
+  osThreadDef(Motor_Move_Sevo, Motor_Task_Sevo, osPriorityHigh, 0, 128);
+  Motor_Move_SevoHandle = osThreadCreate(osThread(Motor_Move_Sevo), NULL);
 
-//  /* definition and creation of Motor_Move_R */
-//  osThreadDef(Motor_Move_R, Motor_Task_R, osPriorityIdle, 0, 128);
-//  Motor_Move_RHandle = osThreadCreate(osThread(Motor_Move_R), NULL);
-//
-//  /* definition and creation of Switcher_Open */
-//  osThreadDef(Switcher_Open, Switcher_Open_Task, osPriorityHigh, 0, 128);
-//  Switcher_OpenHandle = osThreadCreate(osThread(Switcher_Open), NULL);
+  /* definition and creation of Motor_Move_R */
+  osThreadDef(Motor_Move_R, Motor_Task_R, osPriorityIdle, 0, 128);
+  Motor_Move_RHandle = osThreadCreate(osThread(Motor_Move_R), NULL);
+
+  /* definition and creation of Switcher_Open */
+  osThreadDef(Switcher_Open, Switcher_Open_Task, osPriorityHigh, 0, 128);
+  Switcher_OpenHandle = osThreadCreate(osThread(Switcher_Open), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -158,12 +159,17 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
+	Theta1 = (PI/3.0f)+Set_Zero[0];
+	Theta2 = (PI/2.0f)+Set_Zero[1];
+	Servo_Goal_Position(1,90);
+	A1_Start_Move_A = 1;
+	A1_Start_Move_B = 1;
   /* Infinite loop */
   for(;;)
   {
-		Base_Speed_Calculation(1,1000);
-		CAN_CMD_Current(Current[1],0,0,0);
-		osDelay(10);
+//		Base_Speed_Calculation(1,1000);
+//		CAN_CMD_Current(Current[1],0,0,0);
+//		osDelay(10);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -181,8 +187,13 @@ void Motor_Task_A1_A(void const * argument)
   /* Infinite loop */
   while(1)
 	{
-		A1_Motor_Position_Control(0,Theta1);
-		osDelay(100);
+		if (A1_Start_Move_A)
+		{
+			float w = 0.5f;
+			float pos = Theta1+Set_Zero[0];
+			A1_Motor_Speed_Position_Control(0,w,pos);
+			A1_Start_Move_A = 0;
+		}else osDelay(10);
 	}
   /* USER CODE END Motor_Task_A1_A */
 }
@@ -200,8 +211,13 @@ void Motor_Task_A1_B(void const * argument)
   /* Infinite loop */
   while(1)
   {
-		A1_Motor_Position_Control(0,Theta2);
-		osDelay(100);
+		if (A1_Start_Move_B)
+		{
+			float w = 0.5f;
+			float pos = Theta2+Set_Zero[1];
+			A1_Motor_Speed_Position_Control(1,w,pos);
+			A1_Start_Move_B = 0;
+		}else osDelay(10);
   }
   /* USER CODE END Motor_Task_A1_B */
 }

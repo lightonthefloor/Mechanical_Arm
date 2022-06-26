@@ -8,6 +8,7 @@
 #include "A1_Drive.h"
 #include "dma.h"
 #include "usart.h"
+#include "cmsis_os.h"
 //#include "FreeRTOS.h"
 //#include "cmsis_os.h"
 
@@ -26,6 +27,10 @@ union CRCC{
 }CRC_u;
 
 uint8_t Data_Box[3][34];
+
+float Set_Zero[3];
+int A1_Start_Move_A;
+int A1_Start_Move_B;
 
 // Message Sent Part
 
@@ -162,16 +167,12 @@ void A1_Motor_Speed_Position_Control(int ID,float W,float Position)
 	while (fabs((double)((A1_State[ID].Position)-Position)) > deadbond)
 	{
 		A1_Motor_Speed_Control(ID,W);
-		HAL_Delay(100);
+		osDelay(100);
 	}
 	while (fabs((double)((A1_State[ID].Position)-Position)) > 0.1f)
 	{
 		A1_Motor_Position_Control(ID,Position);
-		HAL_Delay(100);
-	}
-	while(A1_State[ID].Omega > 0.1f){
-		A1_Motor_Multiple_Control(ID,0,0,0,0);
-		HAL_Delay(10);
+		osDelay(100);
 	}
 }
 
