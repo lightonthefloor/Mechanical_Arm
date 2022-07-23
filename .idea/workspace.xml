@@ -15,33 +15,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3afebf6-c8c4-40d7-bb33-a1940ab7b556" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="f3afebf6-c8c4-40d7-bb33-a1940ab7b556" name="变更" comment="Bug fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inc/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/main.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/Inc/A1_Drive.h" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/Inc/A1_Drive.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/Inc/Inverse_Mechanical_Calulation.h" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/Inc/Inverse_Mechanical_Calulation.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/Src/A1_Drive.c" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/Src/A1_Drive.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/Src/Inverse_Mechanical_Calulation.c" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/Src/Inverse_Mechanical_Calulation.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/Src/M6020_PID_Controller.c" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/Src/M6020_PID_Controller.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/Src/dynamixel2.c" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/Src/dynamixel2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mechanical_Arm.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/Mechanical_Arm.ioc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/freertos.c" beforeDir="false" afterPath="$PROJECT_DIR$/Src/freertos.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/gpio.c" beforeDir="false" afterPath="$PROJECT_DIR$/Src/gpio.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7ba412b64c0b1d7782ef.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-06-15T07-35-36-0306.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-06-16T10-01-12-0886.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Mechanical_Arm.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Mechanical_Arm.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Mechanical_Arm.elf" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Mechanical_Arm.elf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Mechanical_Arm.hex" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Mechanical_Arm.hex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Mechanical_Arm.map" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Mechanical_Arm.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +61,9 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -118,8 +99,30 @@
       <workItem from="1655213473872" duration="9000" />
       <workItem from="1655213490122" duration="26544000" />
       <workItem from="1655277927327" duration="27631000" />
-      <workItem from="1656221755089" duration="4000" />
+      <workItem from="1656221755089" duration="1383000" />
+      <workItem from="1656921199376" duration="27000" />
+      <workItem from="1656921289912" duration="56000" />
+      <workItem from="1656921359323" duration="7000" />
+      <workItem from="1656921387390" duration="720000" />
+      <workItem from="1658112631561" duration="1535000" />
+      <workItem from="1658546201486" duration="19000" />
+      <workItem from="1658547601987" duration="1000" />
     </task>
+    <task id="LOCAL-00001" summary="Bug fixed">
+      <created>1656221783272</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1656221783272</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Bug fixed">
+      <created>1656221931914</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1656221931914</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,5 +138,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Bug fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fixed" />
   </component>
 </project>
